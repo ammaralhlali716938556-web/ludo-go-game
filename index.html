@@ -1,1 +1,98 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Ludo GO! 3D</title>
+  <!-- Three.js & TWEEN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.umd.js"></script>
+  <!-- Casual Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+  <div id="canvas-container"></div>
+
+  <!-- HUD: Top Bar -->
+  <div class="hud-layer">
+    <div class="top-bar">
+      <div class="pill-stat cash-pill">
+        <span class="icon">🪙</span>
+        <span id="cash-txt">5,000 $</span>
+      </div>
+
+      <div class="shields-container" id="shields-ui">
+        <span class="shield-icon active">🛡️</span>
+        <span class="shield-icon active">🛡️</span>
+        <span class="shield-icon">🛡️</span>
+      </div>
+
+      <div class="pill-stat rolls-pill">
+        <span class="icon">🎲</span>
+        <span id="rolls-txt">50 / 50</span>
+      </div>
+    </div>
+
+    <!-- Center Selection Prompt -->
+    <div class="prompt-box" id="prompt-box">المس البيدق الذي ترغب بتحريكه!</div>
+
+    <!-- Bottom Controls -->
+    <div class="bottom-bar">
+      <div class="action-row">
+        <button class="btn-bubble btn-build" onclick="window.gameSystems.openBuildModal()">
+          🏰 المملكة
+        </button>
+
+        <button class="btn-roll" id="btn-roll" onclick="window.gameMain.onRollClicked()">
+          <span class="roll-sub" id="roll-cost">استهلاك 1🎲</span>
+          <span class="roll-title">ارمِ النرد!</span>
+        </button>
+
+        <button class="btn-bubble btn-mult" id="btn-mult" onclick="window.gameSystems.cycleMultiplier()">
+          X1
+        </button>
+      </div>
+
+      <div class="turn-indicator" id="turn-txt">دورك: اللاعب الأحمر</div>
+    </div>
+  </div>
+
+  <!-- MODAL: Kingdom Landmarks Upgrade -->
+  <div class="modal-overlay" id="build-modal">
+    <div class="modal-card">
+      <h2 class="modal-title">🏰 معالم مملكتك</h2>
+      <div class="landmark-list" id="landmarks-list"></div>
+      <button class="btn-close" onclick="window.gameSystems.closeBuildModal()">إغلاق</button>
+    </div>
+  </div>
+
+  <!-- MODAL: Shut Down Mini-Game -->
+  <div class="modal-overlay" id="shutdown-modal">
+    <div class="modal-card attack-card">
+      <h2 class="modal-title fire-title">🚀 هجوم صاروخي (Shut Down)!</h2>
+      <p class="modal-sub">اختر معلماً من معالم الخصم لقصفه وسرقة أمواله:</p>
+      <div class="targets-grid" id="shutdown-targets"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: Bank Heist Mini-Game -->
+  <div class="modal-overlay" id="heist-modal">
+    <div class="modal-card heist-card">
+      <h2 class="modal-title gold-title">💰 سرقة الخزائن (Bank Heist)!</h2>
+      <p class="modal-sub">افتح 3 أبواب متطابقة للفوز بالجائزة الكبرى:</p>
+      <div class="vault-grid" id="vault-grid"></div>
+    </div>
+  </div>
+
+  <!-- Floating Toast -->
+  <div class="toast-popup" id="toast-popup">
+    <div id="toast-title" class="toast-title"></div>
+    <div id="toast-sub" class="toast-sub"></div>
+  </div>
+
+  <!-- Application Modules -->
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
